@@ -1,0 +1,629 @@
+{
+	"info": {
+		"_postman_id": "fb57fdaf-70d1-436e-9e3f-c0e1e58ac36e",
+		"name": "COCHERAS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cochera",
+			"item": [
+				{
+					"name": "Crear Cochera",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDg5MzA3NTEsImV4cCI6MTY0ODk1OTU1MX0.hZ95x5HdjL5FBD0dm92ZqMCjeOTfcUGDo42hk6vFWiY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Cochera de Adrian\",\r\n    \"direccion\":\"Juan Cruz Varela 2248, Ciudad de Córdoba, Provincia de Córdoba\"\r\n}\r\n   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cocheras}}api/cocheras",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"cocheras"
+							]
+						},
+						"description": "Servicio para crear una cochera\n\n*   Requiere el envío de un token\n*   Verifica que el campo nombre tenga como mínimo 3 caracteres\n*   Verifica que el nombre esté disponible\n*   Verifica el envío de una dirección\n*   Verifica que la dirección esté disponible\n*   Devuelve la cochera creada con todos sus campos, obligatorios mas opcionales\n*   Campos obligatorios: nombre + dirección\n*   La dirección debe tener el formato de una dirección de google ya que se trabaja con su api. Ejemplo: no es lo mismo \"caseros 680\" !== \"Caseros 680 X500 AHN Córdoba\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Cochera",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDg5NTUzNzYsImV4cCI6MTY0ODk4NDE3Nn0.uQ3UVaMPaqFK_JADRRBPZ2ZC4_7pNn2Y48lpotT8sfI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Cochera lo de Adrian\",\r\n    \"xDia\": true,\r\n    \"techada\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cocheras}}api/cocheras/6248afef1ffa2d3b87bc4bd2",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"cocheras",
+								"6248afef1ffa2d3b87bc4bd2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Cocheras",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cocheras}}api/cocheras?techada=true&seguro=false",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"cocheras"
+							],
+							"query": [
+								{
+									"key": "techada",
+									"value": "true"
+								},
+								{
+									"key": "seguro",
+									"value": "false"
+								}
+							]
+						},
+						"description": "Servicio para obtener cocheras\n\n*   No requiere token\n*   Acepta query params, para filtrar por una cochera techada, con seguro, cobro mensual, cobro por hora, cobro por dia, si tiene horarios, etc.\n*   ?techada=true / false\n*   ?seguro=true / false\n*   ?mensual=true / false\n*   ?xdia= true / false\n*   ?xhora= true / false\n*   ?horarios= true / false\n*   ?limite= nº -- default = 5\n*   ?desde= nº -- default = 0"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Cochera x ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDg5MzA3NTEsImV4cCI6MTY0ODk1OTU1MX0.hZ95x5HdjL5FBD0dm92ZqMCjeOTfcUGDo42hk6vFWiY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cocheras}}api/cocheras/6248ac38ecf69f9821aafcdf",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"cocheras",
+								"6248ac38ecf69f9821aafcdf"
+							]
+						},
+						"description": "Servicio para obtener una cochera por ID\n\n*   Requiere el envío de token\n*   Valida que el id enviado por el cliente sea válido\n*   Verifica la existencia de una cochera con el id enviado por el cliente\n*   Devuelve la cochera con todos sus campos"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Cochera",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDg5MzA3NTEsImV4cCI6MTY0ODk1OTU1MX0.hZ95x5HdjL5FBD0dm92ZqMCjeOTfcUGDo42hk6vFWiY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cocheras}}api/cocheras/6248afef1ffa2d3b87bc4bd2",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"cocheras",
+								"6248afef1ffa2d3b87bc4bd2"
+							]
+						},
+						"description": "Servicio para dar de baja una cochera\n\n*   Requiere token\n*   Valida que el id enviado por el cliente sea válido\n*   Valida que exista una cochera con el id enviado por el cliente\n*   Devuelve la cochera eliminada con su \"estado=false\""
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cocheras x usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDg5MzA3NTEsImV4cCI6MTY0ODk1OTU1MX0.hZ95x5HdjL5FBD0dm92ZqMCjeOTfcUGDo42hk6vFWiY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cocheras}}api/cocheras/user",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"cocheras",
+								"user"
+							]
+						},
+						"description": "Servicio para obtener la/las cocheras pertenecientes a un usuario\n\n*   Requiere el envío del token\n*   Devuelve las cocheras pertenecientes al usuario con los campos nombre, dirección y nombre del usuario dueño de las cochera/s"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cocheras geoLOc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cocheras}}api/cocheras/cercanas?lng=-64.1981281,14&mts=2000",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"cocheras",
+								"cercanas"
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "-64.1981281,14"
+								},
+								{
+									"key": "mts",
+									"value": "2000"
+								}
+							]
+						},
+						"description": "Servicio para obtener cocheras a una distancia predeterminada según ubicación pasada como punto de referencia\n\n*   Recibe los siguientes query params\n*   ?lng= { longitud }\n*   ?lat= { latitud }\n*   ?mts= { distancia en metros }\n*   La lng y lat deben corresponder a un punto en el mapa.\n    \n\nEjemplo:\n\n?lng=-64.2167972,17 & lat=-31.3808357 & mts=2000\n\nDevolverá todas las cocheras que existan en la base de datos, esten activas y que se encuentren a una distancia de 2kms incluidos de la ubicación pasada como referencia mediante la coordenadas de longitud y latitud"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Crear Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"nombre\": \"ADMINISTRADOR\",\r\n     \"correo\": \"admin@gmail.com\",\r\n     \"rol\":\"admin\",\r\n     \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cocheras}}api/user/registro",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"user",
+								"registro"
+							]
+						},
+						"description": "Servicio para crear usuario\n\n*   Verifica el envío de un nombre de usuario\n*   Verifica la disponibilidad del nombre de usuario\n*   Verifica el envío de un correo electrónico con formato de correo\n*   Verifica si ya existe un usuario registrado con ese correo\n*   Verifica si la contraseña cumple con los requisitos de longitud ( min: 4 , máx: 12 )\n*   Elimina espacios en blanco en los campos nombre, correo y password\n*   Transforma el nombre a uppercase\n*   Devuelve los campos: nombre, correo, estado, uid + token de acceso"
+					},
+					"response": [
+						{
+							"name": "Crear Usuario",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"nombre\": \"Juan roman riquelme\",\r\n     \"correo\": \"bocajrs@gmail.com\",\r\n     \"rol\":\"    user\",\r\n     \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/user/registro",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"user",
+										"registro"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Obtener Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmUzNmRkNjIxMTNkMTgwMDE4MGQiLCJpYXQiOjE2NDg4MzY5MjEsImV4cCI6MTY0ODg2NTcyMX0.Bsgo4BcSgF1BHMNEGKuZsU2yl8bH5_v4Ai1gfVR4M70",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cocheras}}api/user",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "Servicio para obtener los usuarios\n\n*   Sólo válida para usuario con rol = \"ADMIN\"\n*   Devuelve todos los usuarios de la base de datos, con los campos, nombre, correo, estado y uid\n*   Recibe query params \\[ ?limite=5&desde=3 \\], el valor por defecto de 'limite' es de 5 y 'desde' es 0"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmUzNmRkNjIxMTNkMTgwMDE4MGQiLCJpYXQiOjE2NDg4MzY5MjEsImV4cCI6MTY0ODg2NTcyMX0.Bsgo4BcSgF1BHMNEGKuZsU2yl8bH5_v4Ai1gfVR4M70",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cocheras}}api/user/62472e36dd62113d1800180d",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"user",
+								"62472e36dd62113d1800180d"
+							]
+						},
+						"description": "Servicio para dar de baja un usuario\n\n*   Requiere el envío del token\n*   Permite al usuario darse de baja\n*   Verifica que el id enviado por el cliente sea válido\n*   Valida que el usuario que se está dando de baja sea el mismo propietario del token, es decir un usuario no puede dar de baja a otro usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Usuario x id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDg4NDQzMTMsImV4cCI6MTY0ODg3MzExM30.D0i1oAkzLVpx_8JJGSIbVRgGeUX_5hYTNBekfFzaPiM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cocheras}}api/user/62472e36dd62113d1800180d",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"user",
+								"62472e36dd62113d1800180d"
+							]
+						},
+						"description": "Servicio para obtener usuario por id\n\n*   Sólo valido para usuario con rol = \"ADMIN\"\n*   Requiere el envío del token\n*   Verifica si el id enviado por el cliente corresponde a un id con formato válido\n*   Verifica la existencia de un usuario con el id enviado por el cliente\n*   Devuelve el usuario con todos sus campos menos el de la contraseña"
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmUzNmRkNjIxMTNkMTgwMDE4MGQiLCJpYXQiOjE2NDg4MzU2MTIsImV4cCI6MTY0ODg2NDQxMn0.trQX_BiW2GRTZl6SoGkxQ0esZlD489Qema71LTyCEVU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"cesar_muzio92\",\r\n    \"password\":\"12345678\",\r\n    \"correo\": \"cmuzio375@hotmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cocheras}}api/user/62472e36dd62113d1800180d",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"user",
+								"62472e36dd62113d1800180d"
+							]
+						},
+						"description": "Servicio para modificar usuario\n\n*   Requiere el envío de un token\n*   Permite modificar todos los campos del usuario, únicamente si quien esta queriendo modificar los campos es el mismo usuario propietario del token. Por ejemplo, un usuario no puede modificar el nombre u otro campo de otro usuario.\n*   Al modificar los campos nombre y correo, verifica su disponibilidad, cumpliendo así con los requisitos impuestos al crear un usuario ( que no exista ya un nombre o correo en la BD )\n*   Devuelve el usuario con los campos modificados."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correo\":\"adrian375@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cocheras}}api/auth/login",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Servicio para loguearse\n\n*   Verifica la existencia de un usuario en la base de datos \\[ eliminado / inexistente \\]\n*   Valida la contraseña\n*   Devuelve el usuario con los campos nombre, correo, estado y uid\n*   Genera token de acceso"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehiculo",
+			"item": [
+				{
+					"name": "Crear Vehiculo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDkwOTQ1NzYsImV4cCI6MTY0OTEyMzM3Nn0.fArk8GQl6VdjqTv4RqP0lLIgzt21BbUgK8fh97-8ChE",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clase\":\"motocicleta\",\r\n    \"marca\":\"honda\",\r\n    \"modelo\":\"dax\",\r\n    \"seguro\": true\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:6000/api/vehiculos",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"vehiculos"
+							]
+						},
+						"description": "Servicio para crear vehículos\n\n*   Requiere el envío de token\n*   Valida si la clase de vehículo es válida\n*   Valida que el formato de patente sea correcto. Ej auto: aa123abc o aaa123. Ej moto: 789aaa o a123bcd\n*   Chequea que no existan patentes duplicadas\n*   Valida el envío del campo \"seguro\""
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar vehiculo",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDkwOTQ1NzYsImV4cCI6MTY0OTEyMzM3Nn0.fArk8GQl6VdjqTv4RqP0lLIgzt21BbUgK8fh97-8ChE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cocheras}}api/vehiculos/624b33b025f6991fac0fed48",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"vehiculos",
+								"624b33b025f6991fac0fed48"
+							]
+						},
+						"description": "Servicio para dar de baja un vehículo\n\n*   Requiere el envío de un token\n*   Verifica que el usuario propietario del token sea el propietario del vehículo que se está queriendo eliminar/dar de baja. Es decir un usuario no puede borrar el vehículo de otro usuario\n*   Verifica que el id enviado por el cliente sea válido y corresponda a un vehículo activo\n*   Permite dar de baja el vehículo con el id enviado por el cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Vehiculos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjRiMzliN2RmMzljODZhMGUwODEzOGQiLCJpYXQiOjE2NDkwOTc0ODgsImV4cCI6MTY0OTEyNjI4OH0.mGDJwuVL7EVPAJCHw0zZO2SpC-5ad_i9hAAca8u6GF0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cocheras}}api/vehiculos",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"vehiculos"
+							]
+						},
+						"description": "Servicio para obtener todos los vehículos\n\n*   Apta solo para usuario con rol de ***administrador***\n*   Devuelve todos los vehículos de la base de datos ( eliminados y activos )\n*   Admite los siguientes parámetros de búsqueda\n*   ?limite=1 - limita la cantidad de documentos a devolver\n*   ?desde=5 - realiza un offset dentro de la colección de documentos\n*   ?clase=automovil - devuelve los vehiculos con la clase automovil\n*   ?estado=true / false - permite filtrar la búsqueda de vehículos por eliminados o activos\n*   ?seguro=false/ true - permite filtrar la búsqueda por vehículos con o sin seguro"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener vehículo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjRiMzliN2RmMzljODZhMGUwODEzOGQiLCJpYXQiOjE2NDkwOTk5NDAsImV4cCI6MTY0OTEyODc0MH0.thG4AOuIp1Z9KerQXRhS4yyLvaeqZIzTVioAC-WtwY4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cocheras}}api/vehiculos/624b323e5a6f82938c890131",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"vehiculos",
+								"624b323e5a6f82938c890131"
+							]
+						},
+						"description": "Servicio para obtener un vehículo por su id\n\n*   Apta solo para usuario con rol de ***Administrador***\n*   Verifica que el id enviado por el cliente sea válido\n*   Verifica que exista un vehículo con el id enviado por el cliente\n*   Devuelve el vehículo con todos sus campos"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener vehiculos x usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDkxMDAzOTUsImV4cCI6MTY0OTEyOTE5NX0.BxJa_kmbK2HHvjO1b8WZFRpsOhAGU1qm0QzifZ3ADvM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cocheras}}api/vehiculos/user",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"vehiculos",
+								"user"
+							]
+						},
+						"description": "Servicio para obtener los vehículos asociados a un usuario\n\n*   Requiere el envío del token\n*   Devuelve los vehículos pertenecientes al usuario que está enviando el token"
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar vehiculo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDkxMDAzOTUsImV4cCI6MTY0OTEyOTE5NX0.BxJa_kmbK2HHvjO1b8WZFRpsOhAGU1qm0QzifZ3ADvM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clase\":\"motocicleta\",\r\n    \"patente\":\"555kkk\",\r\n    \"seguro\": true,\r\n    \"marca\":\"honda\",\r\n    \"modelo\":\"dax\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cocheras}}api/vehiculos/624b323e5a6f82938c890131",
+							"host": [
+								"{{cocheras}}api"
+							],
+							"path": [
+								"vehiculos",
+								"624b323e5a6f82938c890131"
+							]
+						},
+						"description": "Servicio para modificar vehículo\n\n*   Requiere el envío del token\n*   Verifica que quien está modificando el vehículo sea el propietario del token. Es decir un usuario no puede modificar los datos del vehículo de otro usuario\n*   Verifica que el id enviado por el cliente sea válido\n*   Verifica que exista un vehículo activo con el id enviado por el cliente\n*   Verifica que la clase enviada corresponda a una clase permitida\n*   Verifica que la patente enviada no esté duplicada y corresponda a un formato correcto\n*   Verifica que el envío del campo seguro no esté vacío\n*   Permite actualizar clase, seguro, modelo, patente y marca"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
