@@ -1,3 +1,4 @@
+const geocoder = require('../helpers/geoCoder');
 
 const Cochera = require('../models/Cochera');
 const { esElMismo } = require('../helpers/chequeoUsuario');
@@ -215,9 +216,10 @@ const obtenerCocheraxId = async( req, res ) => {
         
         const cocheraID = await Cochera.findOne({_id: id , estado: true }, { 'location': 0 })
 
-        return res.status(201).json({
+        res.status(200).json({
             cocheraID
         })
+        
 
     } catch (error) {
         console.log(error)
@@ -266,16 +268,33 @@ const crearCochera = async ( req, res ) => {
     try {
         const cochera = await new Cochera( body )
         
-        await cochera.save()
+        await cochera.save(function( error , result ){
+            if( error ){
+                const { errors } = error;
+                return res.status(400).json({
+                    errors
+                })
+            }
+            if( result ){
+
+                res.status(201).json({
+                    msg: 'Cochera creada exitosamente',
+                    cochera
+                })
+            }
+        })
+      
+  
+       /*  await cochera.save()
         return res.status(201).json({
             msg: 'Cochera creada exitosamente',
             cochera
-        })
+        }) */
   
     } catch (error) {
         console.log(error)
         return res.status(500).json({
-            msg: 'Se produjo un error, verificar que la dirección tenga el formateo adecuado o comunicarse con el adm'
+            msg: 'Se produjo un error, verificar que la dirección tenga el formato adecuado o comunicarse con el adm'
         })
     }
     
@@ -283,62 +302,73 @@ const crearCochera = async ( req, res ) => {
 
 const editarCochera = async ( req, res ) => {
 
-    // Ver como modificar la dirección, xq debe concordar con las coords
-    const { id } = req.params;
-
-    const verificar = await esElMismo( req )
-
-    if( !verificar ){
-        return res.status(401).json({
-            msg: 'No puedes realizar esta accion'
-        })
-    }
-
-    const { nombre, 
-            techada, 
-            location,
-            direccion,
-            mensual,
-            xDia,
-            xHora,
-            vm,
-            vd,
-            vh,
-            seguro,
-            horarios,
-            abre,
-            cierra,
-            img,
-            qtyLugares,
-            disponible 
-    } = req.body;
-
-    const regex = new RegExp( nombre, 'i');
-   
-    const cocheradb = await Cochera.find().where('_id').ne( id ).where({ nombre: regex })
-                                      
-    if( cocheradb.length > 0 ){
-        return res.status(400).json({
-            msg: `El nombre -${nombre}- no está disponible`
-        })
-    }
-    
-
-    let actualizaciones = {};
-    
-    if( nombre !== undefined && nombre.length > 1){
-
-    }
-    
-    
-
-   const cochera = await Cochera.findByIdAndUpdate( id, { nombre: nombre , techada: techada, location: location }, { new: true })
-    
-    res.status(200).json({
-        msg: 'Los datos han sido modificados',
-        cochera
-    })
  
+    const { id } = req.params;
+    const { nombre, direccion, ...rest } = req.body;
+
+    try {
+        // Chequear si el usuario propietario del token es quien creó la cochera
+        const verificar = await esElMismo( req )
+    
+        if( !verificar ){
+            return res.status(401).json({
+                msg: 'No puedes realizar esta accion'
+            })
+        }
+        
+        // Verificar si el nombre esta disponible
+        const regex = new RegExp( nombre, 'i');
+        const cocheradb = await Cochera.find().where('_id').ne( id ).where({ nombre: regex })
+                                          
+        if( cocheradb.length > 0 ){
+            return res.status(400).json({
+                msg: `El nombre -${nombre}- no está disponible`
+            })
+        }
+
+        // Verificar si la direccion esta disponible
+        const regex2 = new RegExp( direccion, 'i');
+        const cocheraConDir = await Cochera.find().where('_id').ne( id ).where({ direccion : regex2})
+
+        if( cocheraConDir.length > 0 ){
+            return res.status(400).json({
+                msg: `La direccion ${ direccion } ya se encuentra en uso`
+            })
+        }
+
+        // Si la dirección esta disponible, generar coordenadas
+        const loc = await geocoder.geocode( direccion )
+    
+        let updates = {
+            location:{
+                type: 'Point',
+                coordinates: [ loc[0].longitude , loc[0].latitude ]
+            },
+            direccion,
+            nombre,
+            ...rest
+        };
+        // Actualizar cochera 
+        // De esta forma mostramos los errores de las validaciones impuestas en los schemas
+         Cochera.findOneAndUpdate( { _id: id } , updates , { new: true, fields:{ location: 0 } }, ( err, doc ) => {
+             if( err ){
+                 return res.status(400).json({
+                     msg: err.message
+                 })
+             }else{
+                 res.status(200).json({
+                     doc
+                 })
+             }
+         })
+
+    } catch (error) {
+        console.log( error )
+        return res.status(500).json({
+            msg: 'Se produjo un error comunicarse con el adm'
+        })
+    }
+    
 }
 
 module.exports = {

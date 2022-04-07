@@ -75,8 +75,9 @@ router.put('/:id',
 [   
     validarJWT,
     check('id', 'No es un id válido').isMongoId(),
-    check('nombre','El campo nombre no puede estar vacío').not().isEmpty(),
     check('id').custom( existeCocheraConId ),
+    check('nombre','El campo nombre no puede estar vacío').not().isEmpty(),
+    check('direccion','La dirección es obligatoria').not().isEmpty(),
     validarCampos
 ] 
 ,editarCochera)

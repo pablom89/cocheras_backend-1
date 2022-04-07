@@ -57,12 +57,14 @@ const cocheraSchema = Schema({
         default: false 
     },
     abre:{ 
-        type: Number, 
-        default: 0 
+        type: String, 
+        default: '10:00',
+        match:[/((?:(?:0|1)\d|2[0-3])):([0-5]\d)/g, 'La hora debe tener un formato válido']
     },
     cierra:{ 
-        type: Number, 
-        default: 0 
+        type: String, 
+        default: '22:00',
+        match:[/((?:(?:0|1)\d|2[0-3])):([0-5]\d)/g, 'La hora debe tener un formato valido']
     }, 
     img: { 
         type: String , 
@@ -115,17 +117,11 @@ cocheraSchema.pre('save', async function(next){
 })
 
 // UPDATE ONE
-
-/*  cocheraSchema.pre('updateOne', async function(next){
-    const loc = await geocoder.geocode( this.direccion )
-    this.location = {
-        type: 'Point',
-        coordinates: [ loc[0].longitude , loc[0].latitude ]
-    }
-
-    next()
-})
- */
+cocheraSchema.pre('findOneAndUpdate', function(next) {
+    this.options.runValidators = true;
+    next();
+});
+ 
 
 cocheraSchema.methods.toJSON = function(){
   const { __v, password, _id, ...cochera } = this.toObject();
