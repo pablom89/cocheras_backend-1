@@ -107,7 +107,7 @@ const crearVehiculo = async ( req, res ) => {
     const { _id: uid } = req.usuario;
     body.usuario = uid;
 
-    const newVehiculo = await new Vehiculo( body );
+    const newVehiculo = new Vehiculo( body );
     
     await newVehiculo.save()
 

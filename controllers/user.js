@@ -47,7 +47,7 @@ const crearUsuario = async( req, res ) =>{
 
     const { password } = req.body;
  
-    const usuario = await new User( req.body )
+    const usuario = new User( req.body )
         
     const salt = bcryptjs.genSaltSync();
     usuario.password = bcryptjs.hashSync( password, salt )

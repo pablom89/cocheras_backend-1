@@ -266,7 +266,7 @@ const crearCochera = async ( req, res ) => {
 
 
     try {
-        const cochera = await new Cochera( body )
+        const cochera =  new Cochera( body )
         
         await cochera.save(function( error , result ){
             if( error ){
