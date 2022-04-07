@@ -15,13 +15,13 @@
 						"header": [
 							{
 								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDg5MzA3NTEsImV4cCI6MTY0ODk1OTU1MX0.hZ95x5HdjL5FBD0dm92ZqMCjeOTfcUGDo42hk6vFWiY",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmUzNmRkNjIxMTNkMTgwMDE4MGQiLCJpYXQiOjE2NDkzNDY0OTYsImV4cCI6MTY0OTM3NTI5Nn0.4QRd0Q7d4XQeyllZLDAiktMCCqqhhQTxO2aROMJY5Sc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Cochera de Adrian\",\r\n    \"direccion\":\"Juan Cruz Varela 2248, Ciudad de Córdoba, Provincia de Córdoba\"\r\n}\r\n   ",
+							"raw": "{\r\n    \"nombre\": \"Cocheras Union Electrica\",\r\n    \"direccion\":\"Av. Madrid 2599, Córdoba\",\r\n    \"abre\":\"09:00\",\r\n    \"cierra\":\"23:00\",\r\n    \"techada\":false,\r\n    \"seguro\": false\r\n}\r\n   ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -29,15 +29,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{cocheras}}api/cocheras",
+							"raw": "{{cocheras}}/api/cocheras",
 							"host": [
-								"{{cocheras}}api"
+								"{{cocheras}}"
 							],
 							"path": [
+								"api",
 								"cocheras"
 							]
 						},
-						"description": "Servicio para crear una cochera\n\n*   Requiere el envío de un token\n*   Verifica que el campo nombre tenga como mínimo 3 caracteres\n*   Verifica que el nombre esté disponible\n*   Verifica el envío de una dirección\n*   Verifica que la dirección esté disponible\n*   Devuelve la cochera creada con todos sus campos, obligatorios mas opcionales\n*   Campos obligatorios: nombre + dirección\n*   La dirección debe tener el formato de una dirección de google ya que se trabaja con su api. Ejemplo: no es lo mismo \"caseros 680\" !== \"Caseros 680 X500 AHN Córdoba\"."
+						"description": "Servicio para crear una cochera\n\n*   Requiere el envío de un token\n*   Verifica que el campo nombre tenga como mínimo 3 caracteres\n*   Verifica que el nombre esté disponible\n*   Verifica el envío de una dirección\n*   Verifica que la dirección esté disponible\n*   Devuelve la cochera creada con todos sus campos, obligatorios mas opcionales\n*   Campos obligatorios: nombre + dirección\n*   La dirección debe tener el formato de una dirección de google ya que se trabaja con su api. Ejemplo: no es lo mismo \"caseros 680\" !== \"Caseros 680 X500 AHN Córdoba\".\n\nAtención: Los campos que reciben booleanos(\"techada\",\"seguro\",\"horarios\",\"xHora\",\"xDia\",\"mensual\") podrán recibir valores como \"true\", 1, \"1\", \"yes\" o \"false\", 0, \"0\", \"no\", los cuales automáticamente se guardarán en la bd como booleans, cualquier otro valor resultará en un error. De acuerdo con la documentación de mongoose:\nBooleans in Mongoose are plain JavaScript booleans. By default, Mongoose casts the below values to true:\n\ntrue\n'true'\n1\n'1'\n'yes'\nMongoose casts the below values to false:\n\nfalse\n'false'\n0\n'0'\n'no'\nAny other value causes a CastError. You can modify what values Mongoose converts to true or false using the convertToTrue and convertToFalse properties, which are JavaScript sets."
 					},
 					"response": []
 				},
@@ -48,13 +49,13 @@
 						"header": [
 							{
 								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmU2ZWRkNjIxMTNkMTgwMDE4MTIiLCJpYXQiOjE2NDg5NTUzNzYsImV4cCI6MTY0ODk4NDE3Nn0.uQ3UVaMPaqFK_JADRRBPZ2ZC4_7pNn2Y48lpotT8sfI",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MjQ3MmUzNmRkNjIxMTNkMTgwMDE4MGQiLCJpYXQiOjE2NDkzNDY0OTYsImV4cCI6MTY0OTM3NTI5Nn0.4QRd0Q7d4XQeyllZLDAiktMCCqqhhQTxO2aROMJY5Sc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Cochera lo de Adrian\",\r\n    \"xDia\": true,\r\n    \"techada\": true\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Cocheras Las palmas\",\r\n    \"direccion\":\"Juan García Martínez 325, Córdoba\",\r\n    \"qtyLugares\": 10,\r\n    \"disponible\": 3,\r\n    \"vd\":\"200\",\r\n    \"techada\": \"false\",\r\n    \"abre\":\"09:00\",\r\n    \"cierra\":\"22:30\"\r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -62,15 +63,17 @@
 							}
 						},
 						"url": {
-							"raw": "{{cocheras}}api/cocheras/6248afef1ffa2d3b87bc4bd2",
+							"raw": "{{cocheras}}/api/cocheras/6248ac38ecf69f9821aafcdf",
 							"host": [
-								"{{cocheras}}api"
+								"{{cocheras}}"
 							],
 							"path": [
+								"api",
 								"cocheras",
-								"6248afef1ffa2d3b87bc4bd2"
+								"6248ac38ecf69f9821aafcdf"
 							]
-						}
+						},
+						"description": "Servicio para editar cocheras\n\n* Requiere el envío del token\n* Verifica que quien esté modificando la cochera sea quien la haya creado\n* Verifica que los campos nombre y dirección no estén incompletos (requeridos)\n* Permite modificar todos los campos de la cochera\n* Verifica la disponibilidad del nombre y la dirección que se quiere ingresar"
 					},
 					"response": []
 				},
@@ -195,18 +198,23 @@
 							}
 						},
 						"url": {
-							"raw": "{{cocheras}}api/cocheras/cercanas?lng=-64.1981281,14&mts=2000",
+							"raw": "{{cocheras}}/api/cocheras/cercanas?lng=-64.2298713&lat=-31.3689557&mts=2000",
 							"host": [
-								"{{cocheras}}api"
+								"{{cocheras}}"
 							],
 							"path": [
+								"api",
 								"cocheras",
 								"cercanas"
 							],
 							"query": [
 								{
 									"key": "lng",
-									"value": "-64.1981281,14"
+									"value": "-64.2298713"
+								},
+								{
+									"key": "lat",
+									"value": "-31.3689557"
 								},
 								{
 									"key": "mts",
@@ -265,14 +273,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:6000/api/user/registro",
-									"protocol": "http",
+									"raw": "{{cocheras}}api/user/registro",
 									"host": [
-										"localhost"
+										"{{cocheras}}api"
 									],
-									"port": "6000",
 									"path": [
-										"api",
 										"user",
 										"registro"
 									]
@@ -409,7 +414,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"correo\":\"adrian375@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"correo\":\"cmuzio375@hotmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -417,11 +422,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{cocheras}}api/auth/login",
+							"raw": "{{cocheras}}/api/auth/login",
 							"host": [
-								"{{cocheras}}api"
+								"{{cocheras}}"
 							],
 							"path": [
+								"api",
 								"auth",
 								"login"
 							]
