@@ -1,11 +1,8 @@
 const express = require('express');
 require('dotenv').config();
+const fileUpload = require('express-fileupload')
 const cors = require('cors');
 const dbConnection = require('../db/config');
-
-
-
-
 
 class Server{
 
@@ -17,7 +14,8 @@ class Server{
             auth: '/api/auth',
             cocheras:'/api/cocheras',
             user: '/api/user',
-            vehiculos:'/api/vehiculos'
+            vehiculos:'/api/vehiculos',
+            uploads:'/api/uploads'
         }
         
         
@@ -31,9 +29,9 @@ class Server{
         }
     }
     
-    async conectarDB(){
+     async conectarDB(){
         await dbConnection()
-    }
+    } 
     
     middlewares(){
         
@@ -43,6 +41,11 @@ class Server{
         // lectura y parseo del body
         this.app.use( express.json() )
         
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath: true
+        }));
         
         // servir carpeta pública , construir path
 
@@ -54,6 +57,7 @@ class Server{
         this.app.use( this.paths.auth, require('../routes/auth') )
         this.app.use( this.paths.user, require('../routes/user') )
         this.app.use( this.paths.cocheras, require('../routes/cocheras') )
+        this.app.use( this.paths.uploads, require('../routes/uploads') )
         this.app.use( this.paths.vehiculos, require('../routes/vehiculos') )
     }
 
