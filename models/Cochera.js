@@ -32,22 +32,119 @@ const cocheraSchema = Schema({
         type: Boolean, 
         default: false 
     },
-    vm: { 
-        type: Number , 
-        default: 0 
-    },
-    vd: { 
-        type: Number , 
-        default: 0 
-    },
-    vh: { 
+    vmA: { 
         type: Number, 
-        default: 0 
+        default: 0.00 
     },
+    vdA: { 
+        type: Number, 
+        default: 0.00
+    },
+    vhA: { 
+        type: Number, 
+        default: 0.00
+    },
+
+    vmM:{
+        type: Number,
+        default: 0.00
+    },
+
+    vdM:{
+        type: Number,
+        default: 0.00
+    },
+
+    vhM:{
+        type: Number,
+        default: 0.00
+    },
+
+    vmP:{
+        type: Number,
+        default: 0.00
+    },
+
+    vdP:{
+        type: Number,
+        default: 0.00
+    },
+
+    vhP:{
+        type: Number,
+        default: 0.00
+    },
+
+    vmB:{
+        type: Number,
+        default: 0.00
+    },
+
+    vdB:{
+        type: Number,
+        default: 0.00
+    },
+
+    vhB:{
+        type: Number,
+        default: 0.00
+    },
+    
+    a24h:{
+        type: Boolean,
+        default: false
+    },
+
+    tel:{
+        type: Number
+    },
+
+    gra:{
+        type: Boolean,
+        default: false
+    },
+
+    auto:{
+        type: Boolean,
+        default: false
+    },
+
+    bici:{
+        type: Boolean,
+        default: false
+    },
+
+    moto:{
+        type: Boolean,
+        default: false
+    },
+
+    pickUp:{
+        type: Boolean,
+        default: false
+    },
+
+    hayLugar:{
+        type: Boolean,
+        default: true
+    },
+
+    opiniones:{
+        type: Array
+    },
+
+    stars:{
+        type: Number,
+        min: 1,
+        max: 5,
+        default: 5
+    },
+
     techada: { 
         type: Boolean, 
         default: true 
     },
+
     seguro: { 
         type: Boolean, 
         default: false 
