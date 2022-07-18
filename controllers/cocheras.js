@@ -92,7 +92,7 @@ const obtenerCocheras = async ( req, res ) => {
                 .skip(Number(desde))
         ])
         
-        res.status(201).json({
+        res.status(200).json({
             total,
             cocheras
         })
