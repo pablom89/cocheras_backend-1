@@ -96,7 +96,14 @@ const cocheraSchema = Schema({
     },
 
     tel:{
-        type: Number
+        type: String,
+        validate:{
+            validator: function(v){
+                return /^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/.test(v);
+            },
+            message: props => `${props.value} no es un número de telefono valido`
+        }
+        /*match:[/^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/, 'El teléfono debe tener un formato válido']*/
     },
 
     gra:{
@@ -163,10 +170,7 @@ const cocheraSchema = Schema({
         default: '22:00',
         match:[/((?:(?:0|1)\d|2[0-3])):([0-5]\d)/g, 'La hora debe tener un formato valido']
     }, 
-    img: { 
-        type: String , 
-        default: 'url'
-    },
+    imgs:[{ url: String }],
     qtyLugares: { 
         type: Number, 
         default: 1 
