@@ -364,6 +364,17 @@ const editarCochera = async ( req, res ) => {
     
 }
 
+const cargarImgsCocheras = async ( req, res ) =>{
+
+    const { files } = req;
+    console.log( files )
+
+    res.send({
+        msg: 'Hola desde cargar imagenes de cochera'
+    })
+
+}
+
 module.exports = {
 
     crearCochera,
@@ -372,6 +383,7 @@ module.exports = {
     obtenerCocheraxId,
     eliminarCochera,
     obtenerCocherasUser,
-    obtenerCocherasFiltradas
+    obtenerCocherasFiltradas,
+    cargarImgsCocheras
 
 }
