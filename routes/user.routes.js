@@ -10,10 +10,31 @@ const {
 const {
   validarCampos,
   validarJWT,
-  esAdminRol
+  esAdminRol,
+  verifyFile,
+  verifyFileFormat,
+  uploadImageToServer
 } = require('../middlewares')
-const { crearUsuario, obtenerUsuarios, borrarUsuario, obtenerUsuario, editarUsuario } = require('../controllers/user');
+const { 
+    crearUsuario, 
+    obtenerUsuarios, 
+    borrarUsuario, 
+    obtenerUsuario, 
+    editarUsuario, 
+    cargarImgUser } = require('../controllers/user.controller');
+
 const router = Router();
+
+
+// CARGAR FOTO PERFIL
+
+router.post('/imagen',
+[
+  validarJWT,
+  uploadImageToServer(),
+  verifyFile,
+  verifyFileFormat
+] ,cargarImgUser)
 
 
 // OBTENER USUARIOS DE FORMA PAGINADA
@@ -53,6 +74,8 @@ router.post('/registro',
     validarCampos   
   ]
 ,crearUsuario )
+
+
 
 // EDITAR USUARIO
 

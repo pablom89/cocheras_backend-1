@@ -12,6 +12,7 @@ class Server {
       cocheras: "/api/cocheras",
       user: "/api/user",
       vehiculos: "/api/vehiculos",
+      uploads: "/api/uploads",
     };
 
     this.conectarDB();
@@ -32,19 +33,20 @@ class Server {
     // cors
     this.app.use(cors(this.corsOptions));
 
+    this.app.use(express.urlencoded({ extended: false }));
+
     // lectura y parseo del body
     this.app.use(express.json());
-
-    // servir carpeta pública , construir path
 
     /* this.app.use( express.static('public')) */
   }
 
   routes() {
-    this.app.use(this.paths.auth, require("../routes/auth"));
-    this.app.use(this.paths.user, require("../routes/user"));
-    this.app.use(this.paths.cocheras, require("../routes/cocheras"));
-    this.app.use(this.paths.vehiculos, require("../routes/vehiculos"));
+    this.app.use(this.paths.auth, require("../routes/auth.routes"));
+    this.app.use(this.paths.user, require("../routes/user.routes"));
+    this.app.use(this.paths.cocheras, require("../routes/cocheras.routes"));
+    this.app.use(this.paths.uploads, require("../routes/uploads"));
+    this.app.use(this.paths.vehiculos, require("../routes/vehiculos.routes"));
   }
 
   listen() {

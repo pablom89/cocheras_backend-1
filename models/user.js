@@ -36,6 +36,10 @@ const userSchema = Schema({
         required: true
     },
 
+    img:{
+        type: String
+    },
+
     estado:{
         type: Boolean,
         default: true

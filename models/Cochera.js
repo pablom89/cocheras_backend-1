@@ -32,22 +32,126 @@ const cocheraSchema = Schema({
         type: Boolean, 
         default: false 
     },
-    vm: { 
-        type: Number , 
-        default: 0 
-    },
-    vd: { 
-        type: Number , 
-        default: 0 
-    },
-    vh: { 
+    vmA: { 
         type: Number, 
-        default: 0 
+        default: 0.00 
     },
+    vdA: { 
+        type: Number, 
+        default: 0.00
+    },
+    vhA: { 
+        type: Number, 
+        default: 0.00
+    },
+
+    vmM:{
+        type: Number,
+        default: 0.00
+    },
+
+    vdM:{
+        type: Number,
+        default: 0.00
+    },
+
+    vhM:{
+        type: Number,
+        default: 0.00
+    },
+
+    vmP:{
+        type: Number,
+        default: 0.00
+    },
+
+    vdP:{
+        type: Number,
+        default: 0.00
+    },
+
+    vhP:{
+        type: Number,
+        default: 0.00
+    },
+
+    vmB:{
+        type: Number,
+        default: 0.00
+    },
+
+    vdB:{
+        type: Number,
+        default: 0.00
+    },
+
+    vhB:{
+        type: Number,
+        default: 0.00
+    },
+    
+    a24h:{
+        type: Boolean,
+        default: false
+    },
+
+    tel:{
+        type: String,
+        validate:{
+            validator: function(v){
+                return /^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/.test(v);
+            },
+            message: props => `${props.value} no es un número de telefono valido`
+        }
+        /*match:[/^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/, 'El teléfono debe tener un formato válido']*/
+    },
+
+    gra:{
+        type: Boolean,
+        default: false
+    },
+
+    auto:{
+        type: Boolean,
+        default: false
+    },
+
+    bici:{
+        type: Boolean,
+        default: false
+    },
+
+    moto:{
+        type: Boolean,
+        default: false
+    },
+
+    pickUp:{
+        type: Boolean,
+        default: false
+    },
+
+    hayLugar:{
+        type: Boolean,
+        default: true
+    },
+
+    opiniones:{
+        type: Array
+    },
+
+    stars:{
+        type: Number,
+        min: 1,
+        max: 5,
+        default: 5
+    },
+
     techada: { 
         type: Boolean, 
         default: true 
     },
+
     seguro: { 
         type: Boolean, 
         default: false 
@@ -66,10 +170,7 @@ const cocheraSchema = Schema({
         default: '22:00',
         match:[/((?:(?:0|1)\d|2[0-3])):([0-5]\d)/g, 'La hora debe tener un formato valido']
     }, 
-    img: { 
-        type: String , 
-        default: 'url'
-    },
+    imgs:[{ url: String }],
     qtyLugares: { 
         type: Number, 
         default: 1 

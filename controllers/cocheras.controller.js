@@ -92,7 +92,7 @@ const obtenerCocheras = async ( req, res ) => {
                 .skip(Number(desde))
         ])
         
-        res.status(201).json({
+        res.status(200).json({
             total,
             cocheras
         })
@@ -267,34 +267,27 @@ const crearCochera = async ( req, res ) => {
 
     try {
         const cochera =  new Cochera( body )
-        
-        await cochera.save(function( error , result ){
+        // is the await here really necessary ??
+        await cochera.save(function( error , doc ){
             if( error ){
                 const { errors } = error;
                 return res.status(400).json({
                     errors
                 })
             }
-            if( result ){
 
-                res.status(201).json({
-                    msg: 'Cochera creada exitosamente',
-                    cochera
-                })
-            }
+            res.status(201).json({
+                msg:'Cochera creada exitosamente',
+                doc
+            })
+        
         })
       
-  
-       /*  await cochera.save()
-        return res.status(201).json({
-            msg: 'Cochera creada exitosamente',
-            cochera
-        }) */
   
     } catch (error) {
         console.log(error)
         return res.status(500).json({
-            msg: 'Se produjo un error, verificar que la dirección tenga el formato adecuado o comunicarse con el adm'
+            msg: 'Se produjo un error, comunicarse con el adm'
         })
     }
     
@@ -371,6 +364,17 @@ const editarCochera = async ( req, res ) => {
     
 }
 
+const cargarImgsCocheras = async ( req, res ) =>{
+
+    const { files } = req;
+    console.log( files )
+
+    res.send({
+        msg: 'Hola desde cargar imagenes de cochera'
+    })
+
+}
+
 module.exports = {
 
     crearCochera,
@@ -379,6 +383,7 @@ module.exports = {
     obtenerCocheraxId,
     eliminarCochera,
     obtenerCocherasUser,
-    obtenerCocherasFiltradas
+    obtenerCocherasFiltradas,
+    cargarImgsCocheras
 
 }
