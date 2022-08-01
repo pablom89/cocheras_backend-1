@@ -23,7 +23,7 @@ class Server{
         this.routes()
         
         this.corsOptions = {
-            origin: 'https://parking-now.herokuapp.com',
+            origin: 'https://parking-now.netlify.app/',
             optionsSuccessStatus: 200 
         }
     }
