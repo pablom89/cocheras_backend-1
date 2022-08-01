@@ -35,7 +35,7 @@ class Server{
     middlewares(){
         
         // cors
-        this.app.use( cors(this.corsOptions))
+        this.app.use( cors())
         
         this.app.use(express.urlencoded({extended: false}));
 
