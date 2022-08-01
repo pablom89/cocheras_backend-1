@@ -23,7 +23,7 @@ class Server{
         this.routes()
         
         this.corsOptions = {
-            origin: 'https://parking-now.netlify.app/',
+            origin: '*',
             optionsSuccessStatus: 200 
         }
     }
@@ -35,7 +35,7 @@ class Server{
     middlewares(){
         
         // cors
-        this.app.use( cors())
+        this.app.use( cors(this.corsOptions))
         
         this.app.use(express.urlencoded({extended: false}));
 
