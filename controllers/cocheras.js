@@ -139,7 +139,8 @@ const obtenerCocherasFiltradas = async ( req, res ) =>{
            } catch (error) {
                console.log( error )
                return res.status(500).json({
-                   msg: 'Se produjo un error comunicarse con el adm'
+                   msg: 'Se produjo un error comunicarse con el adm',
+                   error
                })
            }
             
