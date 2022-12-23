@@ -20,7 +20,7 @@ const {
     obtenerCocherasUser,
     obtenerCocherasFiltradas,
     cargarImgsCocheras,
-    preciosTxt
+    preciostxt
 } = require('../controllers/cocheras.controller');
 const router = Router();
 

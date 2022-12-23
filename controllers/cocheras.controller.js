@@ -375,7 +375,7 @@ const cargarImgsCocheras = async ( req, res ) =>{
 
 }
 
-const preciosTxt = async ( req, res ) =>{
+const preciostxt = async ( req, res ) =>{
 
     //const { files } = req;
     //console.log( files )
@@ -396,6 +396,6 @@ module.exports = {
     obtenerCocherasUser,
     obtenerCocherasFiltradas,
     cargarImgsCocheras,
-    preciosTxt
+    preciostxt
 
 }
