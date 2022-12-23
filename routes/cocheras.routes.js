@@ -30,7 +30,7 @@ router.post('/imagenes', multerForCocheras(), cargarImgsCocheras)
 
 // CARGAR TXT PARA ACTUALIZAR PRECIOS
 
-router.get('/preciostxt', preciostxt)
+router.post('/preciostxt', preciostxt)
 
 // OBTENER COCHERAS
 
