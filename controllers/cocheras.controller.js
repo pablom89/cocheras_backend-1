@@ -377,8 +377,8 @@ const cargarImgsCocheras = async ( req, res ) =>{
 
 const preciosTxt = async ( req, res ) =>{
 
-    const { files } = req;
-    console.log( files )
+    //const { files } = req;
+    //console.log( files )
 
     res.send({
         msg: 'Hola desde TXT cochera'
