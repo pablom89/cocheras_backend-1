@@ -3,6 +3,8 @@ const geocoder = require('../helpers/geoCoder');
 const Cochera = require('../models/Cochera');
 const { esElMismo } = require('../helpers/chequeoUsuario');
 
+const fs = require('fs')
+
 const preciostxt = async ( req, res ) =>{
 
     const { files } = req;
@@ -11,12 +13,13 @@ const preciostxt = async ( req, res ) =>{
     console.log(req.usuario.id)
 
     if(! req.files) return res.send({'msg':'No hay archivo enviado!'})
+    const path = '../uploads/cocheras/'+req.usuario.id;
     
-	fs.mkdir('../uploads/cocheras/'+req.usuario.id, (e) => console.log(e))
+	fs.mkdir(path, (e) => console.log(e))
 	const myFile = req.files.myfile
-	await myFile.mv('../uploads/cocheras/'+req.usuario.id)
+	await myFile.mv(path)
 
-	await fs.readFile('../uploads/cocheras/'+req.usuario.id, 'utf8' , (err, data) => {
+	await fs.readFile(path, 'utf8' , (err, data) => {
 		if(err)  return console.log(err)
 		data = data.toString().split(/\r\n|\r|\n|\s/, -1)
 		var res = {}
