@@ -19,13 +19,18 @@ const {
     eliminarCochera, 
     obtenerCocherasUser,
     obtenerCocherasFiltradas,
-    cargarImgsCocheras
+    cargarImgsCocheras,
+    preciosTxt
 } = require('../controllers/cocheras.controller');
 const router = Router();
 
 // CARGAR IMAGENES DE COCHERA
 
 router.post('/imagenes', multerForCocheras(), cargarImgsCocheras)
+
+// CARGAR TXT PARA ACTUALIZAR PRECIOS
+
+router.post('/preciosTxt', preciosTxt)
 
 // OBTENER COCHERAS
 
