@@ -5,12 +5,35 @@ const { esElMismo } = require('../helpers/chequeoUsuario');
 
 const preciostxt = async ( req, res ) =>{
 
-    //const { files } = req;
-    //console.log( files )
+    const { files } = req;
+    console.log( files )
 
-    res.send({
-        msg: 'Hola desde TXT cochera'
-    })
+    console.log(req.usuario.id)
+
+    if(! req.files) return res.send({'msg':'No hay archivo enviado!'})
+    
+	fs.mkdir('../uploads/cocheras/'+req.usuario.id, (e) => console.log(e))
+	const myFile = req.files.myfile
+	await myFile.mv('../uploads/cocheras/'+req.usuario.id)
+
+	await fs.readFile('../uploads/cocheras/'+req.usuario.id, 'utf8' , (err, data) => {
+		if(err)  return console.log(err)
+		data = data.toString().split(/\r\n|\r|\n|\s/, -1)
+		var res = {}
+		for(var x = 0; x < data.length-2; x++){
+			if(x === 0){
+				res[data[0]]=data[1]
+				
+			}else{
+				if( x%2 !== 0){
+				res[data[x+1]]=data[x+2]
+				}
+			}
+
+		}
+		console.log(res)
+	})
+	res.send({'msg':'File uploaded successfully!'})
 
 }
 

@@ -1,4 +1,5 @@
 const express = require("express");
+const fileUpload = require('express-fileupload');
 require("dotenv").config();
 const cors = require("cors");
 const dbConnection = require("../db/config");
@@ -30,6 +31,11 @@ class Server {
   }
 
   middlewares() {
+
+    // file-upload
+
+    this.app.use(fileUpload())
+
     // cors
     this.app.use(cors(this.corsOptions));
 
