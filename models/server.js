@@ -1,57 +1,66 @@
-const express = require("express");
-require("dotenv").config();
-const cors = require("cors");
-const dbConnection = require("../db/config");
+const express = require('express');
+require('dotenv').config();
+const cors = require('cors');
+const dbConnection = require('../db/config');
 
-class Server {
-  constructor() {
-    this.app = express();
+class Server{
 
-    this.paths = {
-      auth: "/api/auth",
-      cocheras: "/api/cocheras",
-      user: "/api/user",
-      vehiculos: "/api/vehiculos",
-    };
+    constructor(){
 
-    this.conectarDB();
-    this.middlewares();
-    this.routes();
+        this.app = express();
 
-    this.corsOptions = {
-      origin: "*",
-      optionsSuccessStatus: 200,
-    };
-  }
+        this.paths = {
+            auth: '/api/auth',
+            cocheras:'/api/cocheras',
+            user: '/api/user',
+            vehiculos:'/api/vehiculos',
+            uploads:'/api/uploads'
+        }
+        
+        
+        this.conectarDB()
+        this.middlewares()
+        this.routes()
+        
+        this.corsOptions = {
+            origin: '*',
+            optionsSuccessStatus: 200 
+        }
+    }
+    
+     async conectarDB(){
+        await dbConnection()
+    } 
+    
+    middlewares(){
+        
+        // cors
+        this.app.use( cors(this.corsOptions))
+        
+        this.app.use(express.urlencoded({extended: false}));
 
-  async conectarDB() {
-    await dbConnection();
-  }
+        // lectura y parseo del body
+        this.app.use( express.json() )
 
-  middlewares() {
-    // cors
-    this.app.use(cors(this.corsOptions));
 
-    // lectura y parseo del body
-    this.app.use(express.json());
+        /* this.app.use( express.static('public')) */
+    }
 
-    // servir carpeta pública , construir path
+    routes(){
 
-    /* this.app.use( express.static('public')) */
-  }
+        this.app.use( this.paths.auth, require('../routes/auth.routes') )
+        this.app.use( this.paths.user, require('../routes/user.routes') )
+        this.app.use( this.paths.cocheras, require('../routes/cocheras.routes') )
+        this.app.use( this.paths.uploads, require('../routes/uploads') )
+        this.app.use( this.paths.vehiculos, require('../routes/vehiculos.routes') )
+    }
 
-  routes() {
-    this.app.use(this.paths.auth, require("../routes/auth"));
-    this.app.use(this.paths.user, require("../routes/user"));
-    this.app.use(this.paths.cocheras, require("../routes/cocheras"));
-    this.app.use(this.paths.vehiculos, require("../routes/vehiculos"));
-  }
+    listen(){
+        this.app.listen( process.env.PORT, () => {
+            console.log( 'server on port : ' , process.env.PORT )
+        })
+    }
 
-  listen() {
-    this.app.listen(process.env.PORT, () => {
-      console.log("server on port : ", process.env.PORT);
-    });
-  }
 }
 
 module.exports = Server;

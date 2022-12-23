@@ -8,7 +8,8 @@ const {
 } = require('../helpers')
 const {
     validarCampos,
-    validarJWT
+    validarJWT,
+    multerForCocheras
 } = require('../middlewares')
 const { 
     crearCochera, 
@@ -17,9 +18,14 @@ const {
     obtenerCocheraxId, 
     eliminarCochera, 
     obtenerCocherasUser,
-    obtenerCocherasFiltradas
-} = require('../controllers/cocheras');
+    obtenerCocherasFiltradas,
+    cargarImgsCocheras
+} = require('../controllers/cocheras.controller');
 const router = Router();
+
+// CARGAR IMAGENES DE COCHERA
+
+router.post('/imagenes', multerForCocheras(), cargarImgsCocheras)
 
 // OBTENER COCHERAS
 

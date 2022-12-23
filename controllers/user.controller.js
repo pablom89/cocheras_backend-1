@@ -1,7 +1,12 @@
 const bcryptjs = require('bcryptjs');
+
 const { generarJWT } = require('../helpers/generar-jwt');
 const { esElMismo } = require('../helpers/chequeoUsuario');
 const User = require('../models/user');
+const { uploadImg } = require('../helpers/uploadImgToCloudinary');
+
+const cloudinary = require('cloudinary').v2;
+cloudinary.config( process.env.CLOUDINARY_URL );
 
 
 const obtenerUsuarios = async( req, res ) => {
@@ -123,10 +128,37 @@ const borrarUsuario = async( req, res ) =>{
 
 }
 
+const cargarImgUser = async( req, res ) => {
+    
+    const { path } = req.file; 
+    const { _id : idUSer } = req.usuario;
+
+    try {
+
+        const imageUrl = await uploadImg( idUSer, path )
+        const options = {
+            new: true,
+            projection: { img: 1 }
+        }
+        const { img: imageLocation } = await User.findOneAndUpdate({ _id: idUSer, estado: true }, { img: imageUrl }, options )
+        res.json({
+            imageLocation
+        }) 
+    } catch (error) {
+        console.log( 'ERROR: --->',error )
+        res.status(500).send({
+            msg: 'Something went wrong call the admin'
+        })
+    }
+ 
+    
+}
+
 module.exports = {
     crearUsuario,
     obtenerUsuarios,
     borrarUsuario,
     obtenerUsuario,
-    editarUsuario
+    editarUsuario,
+    cargarImgUser
 }

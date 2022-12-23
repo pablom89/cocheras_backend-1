@@ -17,7 +17,7 @@ const { crearVehiculo,
         obtenerVehiculo, 
         obtenerVehiculosUser,
         editarVehiculo
-} = require('../controllers/vehiculos')
+} = require('../controllers/vehiculos.controller')
 
 const router = Router();
 
