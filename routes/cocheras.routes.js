@@ -20,7 +20,7 @@ const {
     obtenerCocherasUser,
     obtenerCocherasFiltradas,
     cargarImgsCocheras,
-    preciosTxt
+    preciostxt
 } = require('../controllers/cocheras.controller');
 const router = Router();
 
@@ -28,9 +28,9 @@ const router = Router();
 
 router.post('/imagenes', multerForCocheras(), cargarImgsCocheras)
 
-// MODIFICAR PRECIOS MEDIANTE ARCHIVO .TXT
+// CARGAR TXT PARA ACTUALIZAR PRECIOS
 
-router.post('/preciosTxt', preciosTxt)
+router.get('/preciostxt', preciostxt)
 
 // OBTENER COCHERAS
 

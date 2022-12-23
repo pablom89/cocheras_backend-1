@@ -3,6 +3,17 @@ const geocoder = require('../helpers/geoCoder');
 const Cochera = require('../models/Cochera');
 const { esElMismo } = require('../helpers/chequeoUsuario');
 
+const preciostxt = async ( req, res ) =>{
+
+    //const { files } = req;
+    //console.log( files )
+
+    res.send({
+        msg: 'Hola desde TXT cochera'
+    })
+
+}
+
 const obtenerCocheras = async ( req, res ) => {
 
     const { limite = 5, desde = 0 } = req.query;
@@ -376,14 +387,6 @@ const cargarImgsCocheras = async ( req, res ) =>{
 
 }
 
-const preciosTxt = (req, res) => {
-    const { files } = req;
-    console.log( files )
-
-    res.send({
-        msg: 'Hola desde cargar TXT de cochera'
-    })
-}
 
 module.exports = {
 
@@ -395,6 +398,6 @@ module.exports = {
     obtenerCocherasUser,
     obtenerCocherasFiltradas,
     cargarImgsCocheras,
-    preciosTxt
+    preciostxt
 
 }
