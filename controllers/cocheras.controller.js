@@ -375,6 +375,15 @@ const cargarImgsCocheras = async ( req, res ) =>{
 
 }
 
+const preciosTxt = (req, res) => {
+    const { files } = req;
+    console.log( files )
+
+    res.send({
+        msg: 'Hola desde cargar TXT de cochera'
+    })
+}
+
 module.exports = {
 
     crearCochera,
@@ -384,6 +393,7 @@ module.exports = {
     eliminarCochera,
     obtenerCocherasUser,
     obtenerCocherasFiltradas,
-    cargarImgsCocheras
+    cargarImgsCocheras,
+    preciosTxt
 
 }
