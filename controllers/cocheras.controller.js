@@ -4,6 +4,7 @@ const Cochera = require('../models/Cochera');
 const { esElMismo } = require('../helpers/chequeoUsuario');
 
 const fs = require('fs')
+const path = require('path')
 
 const preciostxt = async ( req, res ) =>{
 
@@ -13,13 +14,13 @@ const preciostxt = async ( req, res ) =>{
     console.log(req.usuario)
 
     if(!req.files) return res.send({'msg':'No hay archivo enviado!'})
-    const path = '../uploads/cocheras'    //+req.usuario._id;
+    const filePath = path.join(__dirname,'../uploads/cocheras/',req.usuario._id)
     
-	//await fs.mkdir(path, (e) => console.log(e))
+	await fs.mkdir(filePath, (e) => console.log(e))
 	const myFile = req.files.myfile
-	await myFile.mv(path)
+	await myFile.mv(filePath)
 
-	await fs.readFile(path, 'utf8' , (err, data) => {
+	await fs.readFile(filePath, 'utf8' , (err, data) => {
 		if(err)  return console.log(err)
 		data = data.toString().split(/\r\n|\r|\n|\s/, -1)
 		var res = {}
