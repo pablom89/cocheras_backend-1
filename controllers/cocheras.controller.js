@@ -43,19 +43,15 @@ const preciostxt = async ( req, res, next ) =>{
 
         Cochera.findOneAndUpdate( { _id: req.body.id } , {...res} , { new: true, fields:{ location: 0 } }, ( err, doc ) => {
             if( err ){
-                return res.send({
-                    msg: err.message
-                })
+                console.log(err)
             }else{
-                res.send({
-                    doc
-                })
+                console.log(doc)
             }
         })
 
 
 	})
-	//res.send({'msg':'File uploaded successfully!'})
+	res.send({'msg':'File uploaded successfully!'})
 
 }
 
