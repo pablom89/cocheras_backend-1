@@ -6,12 +6,15 @@ const { esElMismo } = require('../helpers/chequeoUsuario');
 const fs = require('fs')
 const path = require('path')
 
-const preciostxt = async ( req, res ) =>{
+const preciostxt = async ( req, res, next ) =>{
 
     const { files } = req;
     console.log( files )
 
     console.log(req.usuario)
+    console.log(req.body.id)
+
+    //req.params.id = req.body.id
 
     if(!req.files) return res.send({'msg':'No hay archivo enviado!'})
     const filePath = path.join(__dirname+'/../uploads/cocheras/'+req.usuario._id)
@@ -26,18 +29,33 @@ const preciostxt = async ( req, res ) =>{
 		var res = {}
 		for(var x = 0; x < data.length-2; x++){
 			if(x === 0){
-				res[data[0]]=data[1]
+				res[data[0]]=Number(data[1])
 				
 			}else{
 				if( x%2 !== 0){
-				res[data[x+1]]=data[x+2]
+				res[data[x+1]]=Number(data[x+2])
 				}
 			}
 
 		}
 		console.log(res)
+
+
+        Cochera.findOneAndUpdate( { _id: req.body.id } , {...res} , { new: true, fields:{ location: 0 } }, ( err, doc ) => {
+            if( err ){
+                return res.status(400).json({
+                    msg: err.message
+                })
+            }else{
+                res.status(200).json({
+                    doc
+                })
+            }
+        })
+
+
 	})
-	res.send({'msg':'File uploaded successfully!'})
+	//res.send({'msg':'File uploaded successfully!'})
 
 }
 
