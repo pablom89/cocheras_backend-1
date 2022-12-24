@@ -43,11 +43,11 @@ const preciostxt = async ( req, res, next ) =>{
 
         Cochera.findOneAndUpdate( { _id: req.body.id } , {...res} , { new: true, fields:{ location: 0 } }, ( err, doc ) => {
             if( err ){
-                return res.status(400).json({
+                return res.send({
                     msg: err.message
                 })
             }else{
-                res.status(200).json({
+                res.send({
                     doc
                 })
             }
