@@ -13,7 +13,7 @@ const preciostxt = async ( req, res ) =>{
     console.log(req.usuario)
 
     if(!req.files) return res.send({'msg':'No hay archivo enviado!'})
-    const path = '../uploads/cocheras/'    //+req.usuario._id;
+    const path = '../uploads/cocheras'    //+req.usuario._id;
     
 	//await fs.mkdir(path, (e) => console.log(e))
 	const myFile = req.files.myfile
