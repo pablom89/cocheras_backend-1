@@ -15,10 +15,13 @@ const preciostxt = async ( req, res ) =>{
 
     if(!req.files) return res.send({'msg':'No hay archivo enviado!'})
     const filePath = path.join(__dirname+'/../uploads/cocheras/'+req.usuario._id)
-    
+    try{
 	await fs.mkdir(filePath, (e) => console.log(e))
 	const myFile = req.files.myfile
 	await myFile.mv(filePath)
+    }catch(e){
+        console.log(e)
+    }
 
 	await fs.readFile(filePath, 'utf8' , (err, data) => {
 		if(err)  return console.log(err)
