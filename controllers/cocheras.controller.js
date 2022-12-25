@@ -16,7 +16,7 @@ const preciostxt = async ( req, res, next ) =>{
 
     //req.params.id = req.body.id
 
-    if(!req.files) return res.send({'msg':'No hay archivo enviado!'})
+    if(!req.files) return res.status(400).send({'msg':'No hay archivo enviado!'})
     const filePath = path.join(__dirname+'/../uploads/cocheras/'+req.usuario._id)
 
 	//await fs.mkdir(filePath, (e) => console.log(e))
@@ -38,7 +38,7 @@ const preciostxt = async ( req, res, next ) =>{
 			}
 
 		}
-		console.log(res)
+		console.log(res, req.body.id)
 
 
         Cochera.findOneAndUpdate( { _id: req.body.id } , {...res} , { new: true, fields:{ location: 0 } }, ( err, doc ) => {
