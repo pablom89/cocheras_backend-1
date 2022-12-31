@@ -1,0 +1,4 @@
+mvH 800   // moto valor Hora $ 800,00 **Borrar esta linea de comentarios** //
+mvM 6500
+avH 1200
+avM 9500

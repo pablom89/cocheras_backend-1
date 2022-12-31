@@ -20,6 +20,7 @@ const {
     obtenerCocherasUser,
     obtenerCocherasFiltradas,
     cargarImgsCocheras,
+    examplePreciosTxt,
     preciostxt
 } = require('../controllers/cocheras.controller');
 const router = Router();
@@ -30,7 +31,7 @@ router.post('/imagenes', multerForCocheras(), cargarImgsCocheras)
 
 // CARGAR TXT PARA ACTUALIZAR PRECIOS
 
-router.post('/preciostxt', validarJWT, preciostxt)
+router.route('/preciostxt').post(validarJWT, preciostxt).get(examplePreciosTxt)
 
 // OBTENER COCHERAS
 
