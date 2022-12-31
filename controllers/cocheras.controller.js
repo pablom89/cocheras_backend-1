@@ -8,7 +8,7 @@ const path = require('path')
 
 
 const examplePreciosTxt = async (req, res) => {
-    res.download('../exampleUpdatePrecios.txt', function(err) {
+    res.download('./exampleUpdatePrecios.txt', function(err) {
         if(err) {
             console.log(err);
         }
